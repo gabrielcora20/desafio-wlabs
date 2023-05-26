@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Wlabs.Application\Wlabs.Application.csproj" />
+    <ProjectReference Include="..\Wlabs.Domain\Wlabs.Domain.csproj" />
+    <ProjectReference Include="..\Wlabs.Infra.CrossCutting.Bus\Wlabs.Infra.CrossCutting.Bus.csproj" />
+    <ProjectReference Include="..\Wlabs.Infra.Data\Wlabs.Infra.Data.csproj" />
+  </ItemGroup>
+
+</Project>
