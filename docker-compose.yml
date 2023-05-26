@@ -1,0 +1,11 @@
+version: "3"
+services:
+  wlabs-api:
+    container_name: wlabs-api
+    image: wlabs-api
+    build:
+        context: ./src
+        dockerfile: ./Wlabs.Services.Api/Dockerfile
+    restart: on-failure
+    ports:
+      - "8080:8080"
