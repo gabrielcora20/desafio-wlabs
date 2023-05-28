@@ -1,6 +1,6 @@
 using MediatR;
 using System.Reflection;
-using Wlabs.Services.Api.Configurations;
+using Wlabs.Services.ApiCep.Configurations;
 
 var builder = WebApplication.CreateBuilder(args);
 

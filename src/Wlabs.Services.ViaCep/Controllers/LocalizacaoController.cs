@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Wlabs.Application.Interfaces;
 
-namespace Wlabs.Services.Api.Controllers
+namespace Wlabs.Services.ViaCep.Controllers
 {
     //[Authorize]
     public class LocalizacaoController : ApiController
@@ -12,14 +12,8 @@ namespace Wlabs.Services.Api.Controllers
         {
             _localizacaoAppService = localizacaoAppService;
         }
-
-        [HttpGet("localizacao/apicep/{cep}")]
-        public async Task<IActionResult> GetFromApiCep(string cep)
-        {
-            return !ModelState.IsValid ? CustomResponse(ModelState) : CustomResponse(await _localizacaoAppService.ConsultaApiCep(cep));
-        }
         
-        [HttpGet("localizacao/viacep/{cep}")]
+        [HttpGet("localizacao/{cep}")]
         public async Task<IActionResult> GetFromViaCep(string cep)
         {
             return !ModelState.IsValid ? CustomResponse(ModelState) : CustomResponse(await _localizacaoAppService.ConsultaViaCep(cep));

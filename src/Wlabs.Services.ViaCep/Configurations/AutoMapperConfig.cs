@@ -1,6 +1,6 @@
 ﻿using Wlabs.Application.AutoMapper;
 
-namespace Wlabs.Services.Api.Configurations
+namespace Wlabs.Services.ViaCep.Configurations
 {
     public static class AutoMapperConfig
     {

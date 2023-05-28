@@ -1,6 +1,6 @@
 ﻿using Microsoft.OpenApi.Models;
 
-namespace Wlabs.Services.Api.Configurations
+namespace Wlabs.Services.ViaCep.Configurations
 {
     public static class SwaggerConfig
     {
@@ -14,7 +14,7 @@ namespace Wlabs.Services.Api.Configurations
                 {
                     Version = "v1",
                     Title = "Desafio Wlabs",
-                    Description = "Projeto de consulta de CEP",
+                    Description = "Projeto de consulta de CEP no endpoint da ApiCep",
                     Contact = new OpenApiContact { Name = "Gabriel Corá", Email = "gabrielcora20@gmail.com" },
                     License = new OpenApiLicense { Name = "MIT", Url = new Uri("https://github.com/gabrielcora20/desafio-wlabs/blob/main/LICENSE") }
                 });

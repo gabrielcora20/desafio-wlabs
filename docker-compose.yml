@@ -1,16 +1,38 @@
 version: "3"
 services:
-  wlabs-api:
-    container_name: wlabs-api
-    image: wlabs-api
+  wlabs-via-cep:
+    container_name: wlabs-via-cep
+    image: wlabs-via-cep
     build:
         context: ./src
-        dockerfile: ./Wlabs.Services.Api/Dockerfile
+        dockerfile: ./Wlabs.Services.ViaCep/Dockerfile
     environment:
         - "TZ=America/Sao_Paulo"
     restart: on-failure
     ports:
-      - "8080:8080"
+      - "8080"
+      
+  wlabs-api-cep:
+    container_name: wlabs-api-cep
+    image: wlabs-api-cep
+    build:
+        context: ./src
+        dockerfile: ./Wlabs.Services.ApiCep/Dockerfile
+    environment:
+        - "TZ=America/Sao_Paulo"
+    restart: on-failure
+    ports:
+      - "8080"
+ 
+  wlabs-api-balancer:    
+     container_name: wlabs-api
+     hostname: wlabs-api
+     image: nginx
+     ports:
+       - "8080:8080"                
+     volumes:          
+       - ./config/api-balancer:/etc/nginx/conf.d/ 
+       - ./volumes/wlabs-api-balancer/logs:/var/log/nginx/ 
 
   mongo-primario:
     container_name: mongo-primario
@@ -26,7 +48,7 @@ services:
       - "TZ=America/Sao_Paulo"
     volumes:
       - ./volumes/mongo-primario/data:/bitnami/mongodb/data/db
-      - ./config/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+      - ./config/mongodb/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
 
   mongo-secundario:
     container_name: mongo-secundario

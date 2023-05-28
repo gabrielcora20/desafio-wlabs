@@ -1,6 +1,6 @@
 ﻿using Wlabs.Infra.CrossCutting.IoC;
 
-namespace Wlabs.Services.Api.Configurations
+namespace Wlabs.Services.ViaCep.Configurations
 {
     public static class DependencyInjectionConfig
     {

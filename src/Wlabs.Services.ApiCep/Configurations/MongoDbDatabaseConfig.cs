@@ -1,6 +1,6 @@
 ﻿using Wlabs.Infra.Data.Configuration;
 
-namespace Wlabs.Services.Api.Configurations
+namespace Wlabs.Services.ApiCep.Configurations
 {
     public static class MongoDbDatabaseConfig
     {
