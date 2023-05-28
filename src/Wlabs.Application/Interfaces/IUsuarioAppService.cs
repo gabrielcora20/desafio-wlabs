@@ -1,14 +1,15 @@
 ﻿using Wlabs.Application.ViewModels;
 using FluentValidation.Results;
+using MongoDB.Bson;
 
 namespace Wlabs.Application.Interfaces
 {
     public interface IUsuarioAppService : IDisposable
     {
         Task<IEnumerable<UsuarioViewModel>> ConsultaTodos();
-        Task<UsuarioViewModel> ConsultaPorId(string id);        
-        Task<ValidationResult> Cadastra(UsuarioViewModel usuarioViewModel);
+        Task<UsuarioViewModel> ConsultaPorId(ObjectId id);        
+        Task<ValidationResult> Cadastra(CadastraUsuarioViewModel criaUsuarioViewModel);
         Task<ValidationResult> Atualiza(UsuarioViewModel usuarioViewModel);
-        Task<ValidationResult> Remove(string id);
+        Task<ValidationResult> Remove(ObjectId id);
     }
 }

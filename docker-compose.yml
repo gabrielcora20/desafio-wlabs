@@ -6,6 +6,56 @@ services:
     build:
         context: ./src
         dockerfile: ./Wlabs.Services.Api/Dockerfile
+    environment:
+        - "TZ=America/Sao_Paulo"
     restart: on-failure
     ports:
       - "8080:8080"
+
+  mongo-primario:
+    container_name: mongo-primario
+    image: 'bitnami/mongodb:latest'
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGODB_ADVERTISED_HOSTNAME=mongo-primario
+      - MONGODB_REPLICA_SET_MODE=primary
+      - MONGODB_ROOT_USERNAME=root
+      - MONGODB_ROOT_PASSWORD=6HHIV8BNb4*C^3Ad#OV0bsjBipi3&28Z53x*jrLu5UGT@@1j!3
+      - MONGODB_REPLICA_SET_KEY=wlabsreplicaset
+      - "TZ=America/Sao_Paulo"
+    volumes:
+      - ./volumes/mongo-primario/data:/bitnami/mongodb/data/db
+      - ./config/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+
+  mongo-secundario:
+    container_name: mongo-secundario
+    image: 'bitnami/mongodb:latest'
+    depends_on:
+      - mongo-primario
+    environment:
+      - MONGODB_ADVERTISED_HOSTNAME=mongo-secundario
+      - MONGODB_REPLICA_SET_MODE=secondary
+      - MONGODB_INITIAL_PRIMARY_HOST=mongo
+      - MONGODB_INITIAL_PRIMARY_PORT_NUMBER=27017
+      - MONGODB_INITIAL_PRIMARY_ROOT_PASSWORD=6HHIV8BNb4*C^3Ad#OV0bsjBipi3&28Z53x*jrLu5UGT@@1j!3
+      - MONGODB_REPLICA_SET_KEY=wlabsreplicaset
+      - "TZ=America/Sao_Paulo"
+    volumes:
+      - ./volumes/mongo-secundario/data:/bitnami/mongodb/data/db
+
+  mongo-arbiter:
+    container_name: mongo-arbiter
+    image: 'bitnami/mongodb:latest'
+    depends_on:
+      - mongo-primario
+    environment:
+      - MONGODB_ADVERTISED_HOSTNAME=mongo-arbiter
+      - MONGODB_REPLICA_SET_MODE=arbiter
+      - MONGODB_INITIAL_PRIMARY_HOST=mongo
+      - MONGODB_INITIAL_PRIMARY_PORT_NUMBER=27017
+      - MONGODB_INITIAL_PRIMARY_ROOT_PASSWORD=6HHIV8BNb4*C^3Ad#OV0bsjBipi3&28Z53x*jrLu5UGT@@1j!3
+      - MONGODB_REPLICA_SET_KEY=wlabsreplicaset
+      - "TZ=America/Sao_Paulo"
+    volumes:
+      - ./volumes/mongo-arbiter/data:/bitnami/mongodb/data/db

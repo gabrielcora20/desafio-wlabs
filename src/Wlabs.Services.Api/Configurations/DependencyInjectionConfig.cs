@@ -1,6 +1,4 @@
-﻿using System;
-using Wlabs.Infra.CrossCutting.IoC;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Wlabs.Infra.CrossCutting.IoC;
 
 namespace Wlabs.Services.Api.Configurations
 {

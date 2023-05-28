@@ -1,10 +1,11 @@
 ﻿using AutoMapper;
 using FluentValidation.Results;
+using MongoDB.Bson;
 using NetDevPack.Mediator;
 using Wlabs.Application.Interfaces;
 using Wlabs.Application.ViewModels;
 using Wlabs.Domain.Commands.Usuario;
-using Wlabs.Domain.Interfaces;
+using Wlabs.Domain.Interfaces.Repository;
 
 namespace Wlabs.Application.Services
 {
@@ -28,13 +29,13 @@ namespace Wlabs.Application.Services
             throw new NotImplementedException();
         }
 
-        public async Task<ValidationResult> Cadastra(UsuarioViewModel usuarioViewModel)
+        public async Task<ValidationResult> Cadastra(CadastraUsuarioViewModel criaUsuarioViewModel)
         {
-            var cadastraUsuarioCommand = _mapper.Map<CadastraUsuarioCommand>(usuarioViewModel);
+            var cadastraUsuarioCommand = _mapper.Map<CadastraUsuarioCommand>(criaUsuarioViewModel);
             return await _mediator.SendCommand(cadastraUsuarioCommand);
         }
 
-        public async Task<UsuarioViewModel> ConsultaPorId(string id)
+        public async Task<UsuarioViewModel> ConsultaPorId(ObjectId id)
         {
             return _mapper.Map<UsuarioViewModel>(await _usuarioRepository.ObtemPorId(id));
         }
@@ -44,7 +45,7 @@ namespace Wlabs.Application.Services
             return _mapper.Map<IEnumerable<UsuarioViewModel>>(await _usuarioRepository.ObtemTodos());
         }
 
-        public Task<ValidationResult> Remove(string id)
+        public Task<ValidationResult> Remove(ObjectId id)
         {
             throw new NotImplementedException();
         }

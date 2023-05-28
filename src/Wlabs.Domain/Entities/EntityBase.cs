@@ -1,9 +1,83 @@
 ﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+using NetDevPack.Messaging;
 
 namespace Wlabs.Domain.Entities
 {
-    public class EntityBase
+    public abstract class EntityBase
     {
-        public ObjectId _id { get; set; }
+        private List<Event> _domainEvents;
+
+        [BsonId]
+        public ObjectId Id { get; set; }
+        public IReadOnlyCollection<Event> DomainEvents => _domainEvents?.AsReadOnly();
+        public ObjectId GetId() { return Id; }
+
+        protected EntityBase()
+        {
+            Id = ObjectId.GenerateNewId();
+        }
+
+        public void AddDomainEvent(Event domainEvent)
+        {
+            _domainEvents = _domainEvents ?? new List<Event>();
+            _domainEvents.Add(domainEvent);
+        }
+
+        public void RemoveDomainEvent(Event domainEvent)
+        {
+            _domainEvents?.Remove(domainEvent);
+        }
+
+        public void ClearDomainEvents()
+        {
+            _domainEvents?.Clear();
+        }
+
+        public override bool Equals(object obj)
+        {
+            EntityBase entity = obj as EntityBase;
+            if ((object)this == entity)
+            {
+                return true;
+            }
+
+            if ((object)entity == null)
+            {
+                return false;
+            }
+
+            return Id.Equals(entity.Id);
+        }
+
+        public static bool operator ==(EntityBase a, EntityBase b)
+        {
+            if ((object)a == null && (object)b == null)
+            {
+                return true;
+            }
+
+            if ((object)a == null || (object)b == null)
+            {
+                return false;
+            }
+
+            return a.Equals(b);
+        }
+
+        public static bool operator !=(EntityBase a, EntityBase b)
+        {
+            return !(a == b);
+        }
+
+        public override int GetHashCode()
+        {
+            return (GetType().GetHashCode() ^ 0x5D) + Id.GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            return $"{GetType().Name} [Id={Id}]";
+        }
     }
 }

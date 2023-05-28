@@ -1,21 +1,20 @@
-﻿using NetDevPack.Data;
+﻿using MongoDB.Driver;
 using Wlabs.Domain.Entities;
-using Wlabs.Domain.Interfaces;
+using Wlabs.Domain.Interfaces.Context;
+using Wlabs.Domain.Interfaces.Repository;
 
 namespace Wlabs.Infra.Data.Repository
 {
     public class UsuarioRepository : RepositoryBase<Usuario>, IUsuarioRepository
     {
-        public IUnitOfWork UnitOfWork => throw new NotImplementedException();
-
-        public void Dispose()
+        public UsuarioRepository(IMongoContext context)
+            :base(context)
+        {  }
+        
+        public async Task<Usuario> ObtemPorEmail(string email)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<Usuario> ObtemPorEmail(string email)
-        {
-            throw new NotImplementedException();
+            var data = await DbSet.FindAsync(Builders<Usuario>.Filter.Eq("email", email));
+            return data.SingleOrDefault();
         }
     }
 }

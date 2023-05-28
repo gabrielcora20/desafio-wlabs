@@ -7,8 +7,8 @@ namespace Wlabs.Application.AutoMapper
     public class ViewModelToDomainMappingProfile : Profile
     {
         public ViewModelToDomainMappingProfile()
-        {
-            CreateMap<UsuarioViewModel, CadastraUsuarioCommand>()
+        {            
+            CreateMap<CadastraUsuarioViewModel, CadastraUsuarioCommand>()
                 .ConstructUsing(c => new CadastraUsuarioCommand(c.Nome, c.Email, c.Senha));
         }
     }

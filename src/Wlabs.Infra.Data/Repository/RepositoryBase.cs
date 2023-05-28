@@ -1,33 +1,54 @@
-﻿using NetDevPack.Domain;
-using Wlabs.Domain.Interfaces;
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
+using NetDevPack.Data;
+using Wlabs.Domain.Entities;
+using Wlabs.Domain.Interfaces.Context;
+using Wlabs.Domain.Interfaces.Repository;
 
 namespace Wlabs.Infra.Data.Repository
 {
-    public class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where TEntity : Entity
+    public class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where TEntity : EntityBase
     {
-        public void Atualiza(TEntity entity)
+        protected readonly IMongoContext Context;
+        protected readonly IMongoCollection<TEntity> DbSet;
+        public RepositoryBase(IMongoContext context)
         {
-            throw new NotImplementedException();
+            Context = context;
+            DbSet = Context.GetCollection<TEntity>(typeof(TEntity).Name);
         }
 
-        public void Insere(TEntity entity)
+        public IUnitOfWork UnitOfWork => Context;
+
+        public virtual void Atualiza(TEntity entity)
         {
-            throw new NotImplementedException();
+            Context.AddCommand(() => DbSet.ReplaceOneAsync(Builders<TEntity>.Filter.Eq("_id", entity.GetId()), entity), entity);
         }
 
-        public Task<TEntity> ObtemPorId(string id)
+        public virtual void Insere(TEntity entity)
         {
-            throw new NotImplementedException();
+            Context.AddCommand(() => DbSet.InsertOneAsync(entity), entity);
         }
 
-        public Task<IEnumerable<Entity>> ObtemTodos()
+        public virtual async Task<TEntity> ObtemPorId(ObjectId id)
         {
-            throw new NotImplementedException();
+            var data = await DbSet.FindAsync(Builders<TEntity>.Filter.Eq("_id", id));
+            return data.SingleOrDefault();
         }
 
-        public void Remove(TEntity entity)
+        public virtual async Task<IEnumerable<TEntity>> ObtemTodos()
         {
-            throw new NotImplementedException();
+            var all = await DbSet.FindAsync(Builders<TEntity>.Filter.Empty);
+            return all.ToList();
+        }
+
+        public virtual void Remove(TEntity entity)
+        {
+            Context.AddCommand(() => DbSet.DeleteOneAsync(Builders<TEntity>.Filter.Eq("_id", entity.GetId())), entity);
+        }
+
+        public void Dispose()
+        {
+            GC.SuppressFinalize(this);
         }
     }
 }
