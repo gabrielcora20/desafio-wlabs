@@ -9,6 +9,8 @@ namespace Wlabs.Application.AutoMapper
         public DomainToViewModelMappingProfile()
         {
             CreateMap<Usuario, UsuarioViewModel>();
+            CreateMap<LocalizacaoViaCep, LocalizacaoViaCepViewModel>();
+            CreateMap<LocalizacaoApiCep, LocalizacaoApiCepViewModel>();
         }
     }
 }

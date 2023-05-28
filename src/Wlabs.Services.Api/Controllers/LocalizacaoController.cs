@@ -1,49 +1,28 @@
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MongoDB.Bson;
 using Wlabs.Application.Interfaces;
-using Wlabs.Application.ViewModels;
 
 namespace Wlabs.Services.Api.Controllers
 {
     //[Authorize]
     public class LocalizacaoController : ApiController
     {
-        private readonly IUsuarioAppService _usuarioAppService;
+        private readonly ILocalizacaoAppService _localizacaoAppService;
 
-        public LocalizacaoController(IUsuarioAppService usuarioAppService)
+        public LocalizacaoController(ILocalizacaoAppService localizacaoAppService)
         {
-            _usuarioAppService = usuarioAppService;
+            _localizacaoAppService = localizacaoAppService;
         }
 
-        //[HttpGet("usuario-management")]
-        //public async Task<IEnumerable<UsuarioViewModel>> Get()
-        //{
-        //    return await _usuarioAppService.GetAll();
-        //}
-
-        [HttpGet("usuario/{id}")]
-        public async Task<UsuarioViewModel> Get(ObjectId id)
+        [HttpGet("localizacao/apicep/{cep}")]
+        public async Task<IActionResult> GetFromApiCep(string cep)
         {
-            return await _usuarioAppService.ConsultaPorId(id);
+            return !ModelState.IsValid ? CustomResponse(ModelState) : CustomResponse(await _localizacaoAppService.ConsultaApiCep(cep));
         }
-
-        [HttpPost("usuario")]
-        public async Task<IActionResult> Post([FromBody] CadastraUsuarioViewModel usuarioViewModel)
+        
+        [HttpGet("localizacao/viacep/{cep}")]
+        public async Task<IActionResult> GetFromViaCep(string cep)
         {
-            return !ModelState.IsValid ? CustomResponse(ModelState) : CustomResponse(await _usuarioAppService.Cadastra(usuarioViewModel));
+            return !ModelState.IsValid ? CustomResponse(ModelState) : CustomResponse(await _localizacaoAppService.ConsultaViaCep(cep));
         }
-
-        //[HttpPut("usuario-management")]
-        //public async Task<IActionResult> Put([FromBody]UsuarioViewModel usuarioViewModel)
-        //{
-        //    return !ModelState.IsValid ? CustomResponse(ModelState) : CustomResponse(await _usuarioAppService.Update(usuarioViewModel));
-        //}
-
-        //[HttpDelete("usuario-management")]
-        //public async Task<IActionResult> Delete(ObjectId id)
-        //{
-        //    return CustomResponse(await _usuarioAppService.Remove(id));
-        //}
     }
 }

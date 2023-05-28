@@ -1,7 +1,6 @@
 ﻿using FluentValidation.Results;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
-using NetDevPack.Data;
 using NetDevPack.Mediator;
 using Wlabs.Application.Interfaces;
 using Wlabs.Application.Services;
@@ -24,6 +23,7 @@ namespace Wlabs.Infra.CrossCutting.IoC
 
             // Application
             services.AddScoped<IUsuarioAppService, UsuarioAppService>();
+            services.AddScoped<ILocalizacaoAppService, LocalizacaoAppService>();
 
             // Domain - Events
             services.AddScoped<INotificationHandler<UsuarioCadastradoEvent>, UsuarioEventHandler>();
@@ -34,7 +34,8 @@ namespace Wlabs.Infra.CrossCutting.IoC
             // Infra - Data
             services.AddScoped<IMongoContext, MongoContext>();
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
-
+            services.AddScoped<ILocalizacaoViaCepRepository, LocalizacaoViaCepRepository>();
+            services.AddScoped<ILocalizacaoApiCepRepository, LocalizacaoApiCepRepository>();
         }
     }
 }
