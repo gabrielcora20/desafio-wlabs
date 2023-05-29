@@ -1,6 +1,7 @@
-﻿using Wlabs.Application.AutoMapper;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Wlabs.Application.AutoMapper;
 
-namespace Wlabs.Services.ViaCep.Configurations
+namespace Wlabs.Services.Core.Configurations
 {
     public static class AutoMapperConfig
     {

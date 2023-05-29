@@ -1,10 +1,8 @@
-﻿using System;
-using FluentValidation.Results;
+﻿using FluentValidation.Results;
 using MediatR;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NetDevPack.Mediator;
-using StackExchange.Redis;
+using Serilog;
 using Wlabs.Application.Interfaces;
 using Wlabs.Application.Services;
 using Wlabs.Domain.Commands.Usuario;
@@ -25,10 +23,7 @@ namespace Wlabs.Infra.CrossCutting.IoC
     {
         public static void RegisterServices(IServiceCollection services)
         {
-            services.AddStackExchangeRedisCache(options =>
-            {
-                options.Configuration = Environment.GetEnvironmentVariable("redis_configuration");
-            });
+            Log.Information($"Executando o método {nameof(RegisterServices)} na classe: {typeof(NativeInjectorBootStrapper).Name}");
 
             // Domain Bus (Mediator)
             services.AddScoped<IMediatorHandler, InMemoryBus>();

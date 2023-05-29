@@ -4,6 +4,7 @@ EXPOSE 8080
 
 # copy csproj and restore as distinct layers
 COPY *.sln .
+COPY Wlabs.Services.Core/*.csproj ./Wlabs.Services.Core/
 COPY Wlabs.Services.ApiCep/*.csproj ./Wlabs.Services.ApiCep/
 COPY Wlabs.Services.ViaCep/*.csproj ./Wlabs.Services.ViaCep/
 COPY Wlabs.Infra.Data/*.csproj ./Wlabs.Infra.Data/
@@ -19,6 +20,7 @@ COPY Wlabs.Application/*.csproj ./Wlabs.Application/
 RUN dotnet restore 
 #
 # copy everything else and build app
+COPY Wlabs.Services.Core/. ./Wlabs.Services.Core/
 COPY Wlabs.Services.ViaCep/. ./Wlabs.Services.ViaCep/
 COPY Wlabs.Services.ApiCep/. ./Wlabs.Services.ApiCep/
 COPY Wlabs.Infra.Data/. ./Wlabs.Infra.Data/

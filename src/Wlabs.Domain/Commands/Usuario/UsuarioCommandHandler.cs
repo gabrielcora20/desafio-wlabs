@@ -1,6 +1,7 @@
 ﻿using FluentValidation.Results;
 using MediatR;
 using NetDevPack.Messaging;
+using Serilog;
 using Wlabs.Domain.Events.Usuario;
 using Wlabs.Domain.Interfaces.Repository;
 
@@ -18,6 +19,8 @@ namespace Wlabs.Domain.Commands.Usuario
 
         public async Task<ValidationResult> Handle(CadastraUsuarioCommand message, CancellationToken cancellationToken)
         {
+            Log.Information($"Executando o método {nameof(Handle)} na classe: {GetType().Name}");
+
             if (!message.IsValid()) return message.ValidationResult;
 
             var usuario = new Entities.Usuario(message.Nome, message.Email, message.Senha);

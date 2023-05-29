@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Wlabs.Application.Interfaces;
+using Wlabs.Services.Core.Controllers;
 
 namespace Wlabs.Services.ViaCep.Controllers
 {

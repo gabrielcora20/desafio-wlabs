@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Serilog;
 using Wlabs.Domain.Entities;
 using Wlabs.Domain.Interfaces.Http;
 using Wlabs.Domain.Interfaces.Redis;
@@ -20,12 +21,22 @@ namespace Wlabs.Infra.Data.Repository
         }
         public async Task<LocalizacaoViaCep> ObtemPorCep(string cep)
         {
-            string key = string.Format("localizacao.viacep.{0}", cep);
+            try
+            {
+                Log.Information($"Executando o método {nameof(ObtemPorCep)} na classe: {GetType().Name}");
 
-            if (await _redisCache.ExisteInformacaoEmCache(key))
-                return await _redisCache.ObtemInformacaoEmCache<LocalizacaoViaCep>(key);
+                string key = string.Format("localizacao.viacep.{0}", cep);
 
-            return await _httpRequester.GetAndCache<LocalizacaoViaCep>(string.Format(_configuration["ViaCepEndpoint"], cep), key);
+                if (await _redisCache.ExisteInformacaoEmCache(key))
+                    return await _redisCache.ObtemInformacaoEmCache<LocalizacaoViaCep>(key);
+
+                return await _httpRequester.GetAndCache<LocalizacaoViaCep>(string.Format(_configuration["ViaCepEndpoint"], cep), key);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, $"Ocorreu um erro ao executar o método {nameof(ObtemPorCep)} na classe: {GetType().Name}");
+                throw;
+            }
         }
     }
 }

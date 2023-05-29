@@ -1,6 +1,7 @@
-﻿using Wlabs.Infra.Data.Configuration;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Wlabs.Infra.Data.Configuration;
 
-namespace Wlabs.Services.ApiCep.Configurations
+namespace Wlabs.Services.Core.Configurations
 {
     public static class MongoDbDatabaseConfig
     {

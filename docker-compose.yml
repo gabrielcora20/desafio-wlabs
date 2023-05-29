@@ -6,7 +6,11 @@ x-wlabs-common:
     - "8080"
   environment:
     - "TZ=America/Sao_Paulo"
-    - "redis_configuration=redis:6379,password=dBja9y0cVkcl9Utw009bsSCt1dFAh0JqQ1FORQi7Yod68AXRrn,connectTimeout=2000"
+  networks:
+    - mongo
+    - elastic
+    - redis
+    - wlabs-api-services
 
 services:
   wlabs-via-cep:
@@ -37,10 +41,13 @@ services:
      depends_on:
         - wlabs-via-cep
         - wlabs-api-cep
+     networks:
+        - wlabs-api-services
 
   mongo-primario:
     container_name: mongo-primario
     image: 'bitnami/mongodb:latest'
+    restart: on-failure
     ports:
       - "27017:27017"
     environment:
@@ -53,10 +60,13 @@ services:
     volumes:
       - ./volumes/mongo-primario/data:/bitnami/mongodb/data/db
       - ./config/mongodb/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+    networks:
+        - mongo
 
   mongo-secundario:
     container_name: mongo-secundario
     image: 'bitnami/mongodb:latest'
+    restart: on-failure
     depends_on:
       - mongo-primario
     environment:
@@ -69,10 +79,13 @@ services:
       - "TZ=America/Sao_Paulo"
     volumes:
       - ./volumes/mongo-secundario/data:/bitnami/mongodb/data/db
+    networks:
+        - mongo
 
   mongo-arbiter:
     container_name: mongo-arbiter
     image: 'bitnami/mongodb:latest'
+    restart: on-failure
     depends_on:
       - mongo-primario
     environment:
@@ -85,13 +98,58 @@ services:
       - "TZ=America/Sao_Paulo"
     volumes:
       - ./volumes/mongo-arbiter/data:/bitnami/mongodb/data/db
+    networks:
+        - mongo
 
   redis:
     image: redis:6.2-alpine
     container_name: redis
-    restart: always
+    restart: on-failure
     ports:
       - '6379:6379'
     command: redis-server --save 20 1 --loglevel warning --requirepass dBja9y0cVkcl9Utw009bsSCt1dFAh0JqQ1FORQi7Yod68AXRrn
     volumes: 
       - ./volumes/redis:/data
+    networks:
+        - redis
+  
+  elasticsearch:
+    container_name: elasticsearch
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.16.3
+    volumes:
+        - ./volumes/elasticsearch:/usr/share/elasticsearch/data   
+    ports:
+        - "9200:9200"
+    environment:
+        - xpack.monitoring.enabled=true
+        - xpack.watcher.enabled=false
+        - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+        - discovery.type=single-node
+        - ELASTICSEARCH_USERNAME=wlabs
+        - ELASTICSEARCH_PASSWORD=0V4ZFwxqX9ArHgo3rf8oUXkUmR06OvZaLNkAGIclq58B3zJIek
+    networks:
+        - elastic
+     
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.16.3
+    container_name: kibana
+    ports:
+        - "5601:5601"
+    depends_on:
+        - elasticsearch
+    environment:
+        - ELASTICSEARCH_URL=http://elasticsearch:9200
+        - ELASTICSEARCH_USERNAME=wlabs
+        - ELASTICSEARCH_PASSWORD=0V4ZFwxqX9ArHgo3rf8oUXkUmR06OvZaLNkAGIclq58B3zJIek
+    networks:
+        - elastic
+
+networks:
+  elastic:
+    driver: bridge
+  mongo:
+    driver: bridge
+  redis:
+    driver: bridge
+  wlabs-api-services:
+    driver: bridge

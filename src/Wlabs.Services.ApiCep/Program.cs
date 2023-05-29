@@ -1,11 +1,13 @@
 using MediatR;
 using System.Reflection;
-using Wlabs.Services.ApiCep.Configurations;
+using Wlabs.Services.Core.Configurations;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
+
+builder.AddSerilog(builder.Configuration, "Wlabs Api - Api Cep");
 
 // AutoMapper Settings
 builder.Services.AddAutoMapperConfiguration();
@@ -19,10 +21,15 @@ builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.G
 // Adding MongoDB Database configuration
 builder.Services.AddMongoDbConfiguration();
 
+// Adding Redis configuration
+builder.Services.AddRedis(builder.Configuration);
+
 // .NET Native DI Abstraction
 builder.Services.AddDependencyInjectionConfiguration();
 
 var app = builder.Build();
+
+app.UseApiConfiguration(app.Environment);
 
 app.UseSwaggerSetup();
 

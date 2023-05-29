@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
-namespace Wlabs.Services.ApiCep.Controllers
+namespace Wlabs.Services.Core.Controllers
 {
     [ApiController]
     public abstract class ApiController : ControllerBase

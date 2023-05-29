@@ -1,4 +1,5 @@
-﻿using Wlabs.Domain.Interfaces.Http;
+﻿using Serilog;
+using Wlabs.Domain.Interfaces.Http;
 using Wlabs.Domain.Interfaces.Redis;
 using Wlabs.Infra.CrossCutting.Json;
 
@@ -13,16 +14,36 @@ namespace Wlabs.Infra.CrossCutting.Http
         }
         public async Task<TEntity> Get<TEntity>(string url) where TEntity : class
         {
-            HttpClient httpClient = new HttpClient();
-            var response = await httpClient.GetStringAsync(url);
-            return response.Deserialize<TEntity>();
+            try
+            {
+                Log.Information($"Executando o método {nameof(Get)} na classe: {GetType().Name}");
+
+                HttpClient httpClient = new HttpClient();
+                var response = await httpClient.GetStringAsync(url);
+                return response.Deserialize<TEntity>();
+            }
+            catch(Exception ex)
+            {
+                Log.Error(ex, $"Ocorreu um erro ao executar o método {nameof(Get)} na classe: {GetType().Name}");
+                throw;
+            }
         }
 
         public async Task<TEntity> GetAndCache<TEntity>(string url, string cacheKey) where TEntity : class
         {
-            TEntity responseEntity = await Get<TEntity>(url);
-            _redisCache.CriaInformacaoEmCache(cacheKey, responseEntity);
-            return responseEntity;
+            try
+            {
+                Log.Information($"Executando o método {nameof(GetAndCache)} na classe: {GetType().Name}");
+
+                TEntity responseEntity = await Get<TEntity>(url);
+                _redisCache.CriaInformacaoEmCache(cacheKey, responseEntity);
+                return responseEntity;
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, $"Ocorreu um erro ao executar o método {nameof(GetAndCache)} na classe: {GetType().Name}");
+                throw;
+            }
         }
     }
 }

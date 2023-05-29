@@ -1,4 +1,5 @@
 ﻿using MongoDB.Bson.Serialization.Conventions;
+using Serilog;
 using Wlabs.Infra.Data.Mappings;
 
 namespace Wlabs.Infra.Data.Configuration
@@ -7,16 +8,28 @@ namespace Wlabs.Infra.Data.Configuration
     {
         public static void Configure()
         {
-            UsuarioMap.Configure();
-            EntityBaseMap.Configure();
+            try
+            {
+                Log.Information($"Executando o método {nameof(Configure)} na classe: {typeof(MongoDbInitializer).Name}");
 
-            // Conventions
-            var pack = new ConventionPack
+                UsuarioMap.Configure();
+                EntityBaseMap.Configure();
+
+                // Conventions
+                var pack = new ConventionPack
                 {
                     new IgnoreExtraElementsConvention(true),
                     new IgnoreIfDefaultConvention(true)
                 };
-            ConventionRegistry.Register("Wlabs Conventions", pack, t => true);
+                ConventionRegistry.Register("Wlabs Conventions", pack, t => true);
+
+                Log.Information("Configurações do MongoDB inicializadas");
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, $"Houve um problema ao inicializar as configurações do MongoDB");
+                throw;
+            }
         }
     }
 

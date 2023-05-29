@@ -1,6 +1,8 @@
-﻿using Microsoft.OpenApi.Models;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.OpenApi.Models;
 
-namespace Wlabs.Services.ViaCep.Configurations
+namespace Wlabs.Services.Core.Configurations
 {
     public static class SwaggerConfig
     {
