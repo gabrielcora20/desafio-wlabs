@@ -1,8 +1,6 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using NetDevPack.Messaging;
-using Newtonsoft.Json;
-using System.Runtime.CompilerServices;
 
 namespace Wlabs.Domain.Entities
 {

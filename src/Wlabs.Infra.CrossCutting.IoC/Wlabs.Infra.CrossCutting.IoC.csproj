@@ -10,6 +10,7 @@
     <ProjectReference Include="..\Wlabs.Application\Wlabs.Application.csproj" />
     <ProjectReference Include="..\Wlabs.Domain\Wlabs.Domain.csproj" />
     <ProjectReference Include="..\Wlabs.Infra.CrossCutting.Bus\Wlabs.Infra.CrossCutting.Bus.csproj" />
+    <ProjectReference Include="..\Wlabs.Infra.CrossCutting.Http\Wlabs.Infra.CrossCutting.Http.csproj" />
     <ProjectReference Include="..\Wlabs.Infra.Data\Wlabs.Infra.Data.csproj" />
   </ItemGroup>
 

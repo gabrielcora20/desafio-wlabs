@@ -31,8 +31,7 @@ services:
      ports:
        - "8080:8080"                
      volumes:          
-       - ./config/api-balancer:/etc/nginx/conf.d/ 
-       - ./volumes/wlabs-api-balancer/logs:/var/log/nginx/ 
+       - ./config/api-balancer:/etc/nginx/conf.d/
 
   mongo-primario:
     container_name: mongo-primario

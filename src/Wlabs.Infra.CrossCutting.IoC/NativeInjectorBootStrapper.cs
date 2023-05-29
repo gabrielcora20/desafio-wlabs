@@ -7,8 +7,10 @@ using Wlabs.Application.Services;
 using Wlabs.Domain.Commands.Usuario;
 using Wlabs.Domain.Events.Usuario;
 using Wlabs.Domain.Interfaces.Context;
+using Wlabs.Domain.Interfaces.Http;
 using Wlabs.Domain.Interfaces.Repository;
 using Wlabs.Infra.CrossCutting.Bus;
+using Wlabs.Infra.CrossCutting.Http;
 using Wlabs.Infra.Data.Context;
 using Wlabs.Infra.Data.Repository;
 
@@ -20,6 +22,8 @@ namespace Wlabs.Infra.CrossCutting.IoC
         {
             // Domain Bus (Mediator)
             services.AddScoped<IMediatorHandler, InMemoryBus>();
+
+            services.AddScoped< IHttpRequester, HttpRequester>();
 
             // Application
             services.AddScoped<IUsuarioAppService, UsuarioAppService>();
