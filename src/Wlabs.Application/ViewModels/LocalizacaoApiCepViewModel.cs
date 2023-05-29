@@ -1,22 +1,28 @@
 ﻿using System.ComponentModel;
+using System.Text.Json.Serialization;
 
 namespace Wlabs.Application.ViewModels
 {
     public class LocalizacaoApiCepViewModel
     {
-        [DisplayName("code")]
+        [JsonPropertyName("cep")]
+        [DisplayName("cep")]
         public string Code { get; set; }
 
-        [DisplayName("state")]
+        [JsonPropertyName("estado")]
+        [DisplayName("estado")]
         public string State { get; set; }
 
-        [DisplayName("city")]
+        [JsonPropertyName("cidade")]
+        [DisplayName("cidade")]
         public string City { get; set; }
 
-        [DisplayName("district")]
+        [JsonPropertyName("bairro")]
+        [DisplayName("bairro")]
         public string District { get; set; }
 
-        [DisplayName("address")]
+        [JsonPropertyName("logradouro")]
+        [DisplayName("logradouro")]
         public string Address { get; set; }
     }
 }

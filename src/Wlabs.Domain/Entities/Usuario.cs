@@ -9,7 +9,7 @@ namespace Wlabs.Domain.Entities
         public string Email { get; private set; }
         public string Senha { get; private set; }
 
-        public Usuario(ObjectId id, string nome, string email, string senha)
+        public Usuario(string id, string nome, string email, string senha)
         {
             Id = id;
             Nome = nome;
@@ -18,7 +18,6 @@ namespace Wlabs.Domain.Entities
         }
         public Usuario(string nome, string email, string senha)
         {
-            Id = ObjectId.GenerateNewId();
             Nome = nome;
             Email = email;
             Senha = senha;

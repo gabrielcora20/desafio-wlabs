@@ -1,37 +1,42 @@
 version: "3"
+x-wlabs-common:
+  &wlabs-common
+  restart: on-failure
+  ports:
+    - "8080"
+  environment:
+    - "TZ=America/Sao_Paulo"
+    - "redis_configuration=redis:6379,password=dBja9y0cVkcl9Utw009bsSCt1dFAh0JqQ1FORQi7Yod68AXRrn,connectTimeout=2000"
+
 services:
   wlabs-via-cep:
+    <<: *wlabs-common
     container_name: wlabs-via-cep
     image: wlabs-via-cep
     build:
         context: ./src
         dockerfile: ./Wlabs.Services.ViaCep/Dockerfile
-    environment:
-        - "TZ=America/Sao_Paulo"
-    restart: on-failure
-    ports:
-      - "8080"
       
   wlabs-api-cep:
+    <<: *wlabs-common
     container_name: wlabs-api-cep
     image: wlabs-api-cep
     build:
         context: ./src
         dockerfile: ./Wlabs.Services.ApiCep/Dockerfile
-    environment:
-        - "TZ=America/Sao_Paulo"
-    restart: on-failure
-    ports:
-      - "8080"
  
   wlabs-api-balancer:    
      container_name: wlabs-api
      hostname: wlabs-api
      image: nginx
+     restart: always
      ports:
        - "8080:8080"                
      volumes:          
        - ./config/api-balancer:/etc/nginx/conf.d/
+     depends_on:
+        - wlabs-via-cep
+        - wlabs-api-cep
 
   mongo-primario:
     container_name: mongo-primario
@@ -80,3 +85,13 @@ services:
       - "TZ=America/Sao_Paulo"
     volumes:
       - ./volumes/mongo-arbiter/data:/bitnami/mongodb/data/db
+
+  redis:
+    image: redis:6.2-alpine
+    container_name: redis
+    restart: always
+    ports:
+      - '6379:6379'
+    command: redis-server --save 20 1 --loglevel warning --requirepass dBja9y0cVkcl9Utw009bsSCt1dFAh0JqQ1FORQi7Yod68AXRrn
+    volumes: 
+      - ./volumes/redis:/data

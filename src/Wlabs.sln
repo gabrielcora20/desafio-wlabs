@@ -33,6 +33,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wlabs.Services.ApiCep", "Wl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wlabs.Infra.CrossCutting.Http", "Wlabs.Infra.CrossCutting.Http\Wlabs.Infra.CrossCutting.Http.csproj", "{E8CE8EC1-D676-44FE-939F-48B5CC6E6C49}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wlabs.Infra.CrossCutting.Redis", "Wlabs.Infra.CrossCutting.Redis\Wlabs.Infra.CrossCutting.Redis.csproj", "{35108458-0CE4-4DA9-AC98-FEE1F9C19D57}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +77,10 @@ Global
 		{E8CE8EC1-D676-44FE-939F-48B5CC6E6C49}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E8CE8EC1-D676-44FE-939F-48B5CC6E6C49}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E8CE8EC1-D676-44FE-939F-48B5CC6E6C49}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35108458-0CE4-4DA9-AC98-FEE1F9C19D57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35108458-0CE4-4DA9-AC98-FEE1F9C19D57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35108458-0CE4-4DA9-AC98-FEE1F9C19D57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35108458-0CE4-4DA9-AC98-FEE1F9C19D57}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -91,6 +97,7 @@ Global
 		{206FA20B-D5F8-43D0-AA64-CF39B51F0FC6} = {31305079-3284-48B3-B3C6-C6684B44A3C9}
 		{4E94CC6E-68D7-4F44-A637-864FA5C4B132} = {31305079-3284-48B3-B3C6-C6684B44A3C9}
 		{E8CE8EC1-D676-44FE-939F-48B5CC6E6C49} = {E385A194-E130-4831-BB3F-7690BA4CAE9F}
+		{35108458-0CE4-4DA9-AC98-FEE1F9C19D57} = {E385A194-E130-4831-BB3F-7690BA4CAE9F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7E0E2002-915C-422D-915D-1DA7400C3520}

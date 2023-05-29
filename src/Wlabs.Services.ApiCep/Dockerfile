@@ -11,6 +11,7 @@ COPY Wlabs.Infra.CrossCutting.IoC/*.csproj ./Wlabs.Infra.CrossCutting.IoC/
 COPY Wlabs.Infra.CrossCutting.Bus/*.csproj ./Wlabs.Infra.CrossCutting.Bus/ 
 COPY Wlabs.Infra.CrossCutting.Json/*.csproj ./Wlabs.Infra.CrossCutting.Json/ 
 COPY Wlabs.Infra.CrossCutting.Http/*.csproj ./Wlabs.Infra.CrossCutting.Http/ 
+COPY Wlabs.Infra.CrossCutting.Redis/*.csproj ./Wlabs.Infra.CrossCutting.Redis/ 
 COPY Wlabs.Domain/*.csproj ./Wlabs.Domain/ 
 COPY Wlabs.Application/*.csproj ./Wlabs.Application/ 
 #
@@ -25,6 +26,7 @@ COPY Wlabs.Infra.CrossCutting.IoC/. ./Wlabs.Infra.CrossCutting.IoC/
 COPY Wlabs.Infra.CrossCutting.Bus/. ./Wlabs.Infra.CrossCutting.Bus/ 
 COPY Wlabs.Infra.CrossCutting.Json/. ./Wlabs.Infra.CrossCutting.Json/ 
 COPY Wlabs.Infra.CrossCutting.Http/. ./Wlabs.Infra.CrossCutting.Http/ 
+COPY Wlabs.Infra.CrossCutting.Redis/. ./Wlabs.Infra.CrossCutting.Redis/ 
 COPY Wlabs.Domain/. ./Wlabs.Domain/ 
 COPY Wlabs.Application/. ./Wlabs.Application/ 
 #

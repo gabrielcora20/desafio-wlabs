@@ -1,11 +1,10 @@
 ﻿using Newtonsoft.Json;
-using Wlabs.Domain.Entities;
 
 namespace Wlabs.Infra.CrossCutting.Json
 {
     public static class Serializers
     {
-        public static string Serialize(this EntityBase entity)
+        public static string Serialize<TEntity>(this TEntity entity) where TEntity : class
         {
             return JsonConvert.SerializeObject(entity, Formatting.Indented);
         }

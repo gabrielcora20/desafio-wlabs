@@ -1,16 +1,21 @@
-﻿using FluentValidation.Results;
+﻿using System;
+using FluentValidation.Results;
 using MediatR;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NetDevPack.Mediator;
+using StackExchange.Redis;
 using Wlabs.Application.Interfaces;
 using Wlabs.Application.Services;
 using Wlabs.Domain.Commands.Usuario;
 using Wlabs.Domain.Events.Usuario;
 using Wlabs.Domain.Interfaces.Context;
 using Wlabs.Domain.Interfaces.Http;
+using Wlabs.Domain.Interfaces.Redis;
 using Wlabs.Domain.Interfaces.Repository;
 using Wlabs.Infra.CrossCutting.Bus;
 using Wlabs.Infra.CrossCutting.Http;
+using Wlabs.Infra.CrossCutting.Redis;
 using Wlabs.Infra.Data.Context;
 using Wlabs.Infra.Data.Repository;
 
@@ -20,10 +25,17 @@ namespace Wlabs.Infra.CrossCutting.IoC
     {
         public static void RegisterServices(IServiceCollection services)
         {
+            services.AddStackExchangeRedisCache(options =>
+            {
+                options.Configuration = Environment.GetEnvironmentVariable("redis_configuration");
+            });
+
             // Domain Bus (Mediator)
             services.AddScoped<IMediatorHandler, InMemoryBus>();
 
-            services.AddScoped< IHttpRequester, HttpRequester>();
+            services.AddScoped<IRedisCache, RedisCache>();
+
+            services.AddScoped<IHttpRequester, HttpRequester>();
 
             // Application
             services.AddScoped<IUsuarioAppService, UsuarioAppService>();

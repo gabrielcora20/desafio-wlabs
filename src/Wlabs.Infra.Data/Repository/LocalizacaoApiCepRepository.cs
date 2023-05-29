@@ -1,5 +1,7 @@
-﻿using Wlabs.Domain.Entities;
+﻿using Microsoft.Extensions.Configuration;
+using Wlabs.Domain.Entities;
 using Wlabs.Domain.Interfaces.Http;
+using Wlabs.Domain.Interfaces.Redis;
 using Wlabs.Domain.Interfaces.Repository;
 
 namespace Wlabs.Infra.Data.Repository
@@ -7,13 +9,22 @@ namespace Wlabs.Infra.Data.Repository
     public class LocalizacaoApiCepRepository : ILocalizacaoApiCepRepository
     {
         private readonly IHttpRequester _httpRequester;
-        public LocalizacaoApiCepRepository(IHttpRequester httpRequester)
+        private readonly IRedisCache _redisCache;
+        private readonly IConfiguration _configuration;
+        public LocalizacaoApiCepRepository(IConfiguration configuration, IHttpRequester httpRequester, IRedisCache redisCache)
         {
+            _configuration = configuration;
             _httpRequester = httpRequester;
+            _redisCache = redisCache;
         }
         public async Task<LocalizacaoApiCep> ObtemPorCep(string cep)
         {
-            return await _httpRequester.Get<LocalizacaoApiCep>(string.Format("https://cdn.apicep.com/file/apicep/{0}.json", Convert.ToUInt64(cep).ToString(@"00000\-000")));
+            string key = string.Format("localizacao.apicep.{0}", cep);
+
+            if (await _redisCache.ExisteInformacaoEmCache(key))
+                return await _redisCache.ObtemInformacaoEmCache<LocalizacaoApiCep>(key);
+
+            return await _httpRequester.GetAndCache<LocalizacaoApiCep>(string.Format(_configuration["ApiCepEndpoint"], Convert.ToUInt64(cep).ToString(@"00000\-000")), key);
         }
     }
 }
