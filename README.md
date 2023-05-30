@@ -29,7 +29,7 @@ A aplicação conta com os seguintes serviços:
 
 <br/>
 
-## **Instalação**
+## **Instruções de Instalação**
 
 <br/>
 
@@ -39,7 +39,7 @@ A aplicação conta com os seguintes serviços:
 
 <br/>
 
-### Instruções de Execução
+### Executando o projeto
 
 * Baixe o projeto
     ```sh
@@ -54,7 +54,7 @@ A aplicação conta com os seguintes serviços:
     docker-compose up -d --build
     ```
 
-## **Instuções de Utilização**
+## **Instruções de Utilização**
 
 <br/>
 
