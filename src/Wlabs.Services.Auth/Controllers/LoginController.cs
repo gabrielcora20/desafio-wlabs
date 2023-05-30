@@ -19,7 +19,14 @@ namespace Wlabs.Services.Auth.Controllers
         [HttpPost]
         public async Task<IActionResult> Authenticate(LoginViewModel loginViewModel)
         {
-            return !ModelState.IsValid ? CustomResponse(ModelState) : CustomResponse(await _usuarioAppService.EfetuaLogin(loginViewModel));
+            try
+            {
+                return !ModelState.IsValid ? CustomResponse(ModelState) : CustomResponse(await _usuarioAppService.EfetuaLogin(loginViewModel));
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return Unauthorized(new { error = ex.Message });
+            }
         }
     }
 }

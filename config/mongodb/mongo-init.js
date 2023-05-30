@@ -3,7 +3,7 @@ db = db.getSiblingDB('wlabs');
 db.createCollection('Usuario');
 
 db.Usuario.insert({
-    "nome": "Wlabs",
-    "email": "wlabs@gmail.com",
-    "senha": "1234"
+	"email": "wlabs@gmail.com",
+	"nome": "Wlabs",
+	"senha": "CBA72QdD7H8YBcgefTqE2Q=="
 });

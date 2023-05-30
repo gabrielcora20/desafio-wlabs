@@ -75,7 +75,7 @@ namespace Wlabs.Application.Services
             Log.Information($"Executando o método {nameof(EfetuaLogin)} na classe: {GetType().Name}");
 
             var usuario = await _usuarioRepository.ObtemPorEmailESenha(loginViewModel.Email, loginViewModel.Senha);
-            if (usuario == null) return null;
+            if (usuario == null) throw new UnauthorizedAccessException("O e-mail e/ou senha estão incorretos");
             var token = _jwtUtils.GenerateJwtToken(usuario);
             return _mapper.Map<JwtResponseViewModel>(token);
         }
