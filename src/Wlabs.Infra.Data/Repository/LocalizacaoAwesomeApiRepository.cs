@@ -24,7 +24,7 @@ namespace Wlabs.Infra.Data.Repository
             {
                 Log.Information($"Executando o método {nameof(ObtemPorCep)} na classe: {GetType().Name}");
 
-                string key = string.Format("localizacao.apicep.{0}", cep);
+                string key = string.Format("localizacao.awesomeapi.{0}", cep);
 
                 if (await _redisCache.ExisteInformacaoEmCache(key))
                     return await _redisCache.ObtemInformacaoEmCache<LocalizacaoAwesomeApi>(key);

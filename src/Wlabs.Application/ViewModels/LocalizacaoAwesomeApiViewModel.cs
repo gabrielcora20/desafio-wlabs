@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace Wlabs.Application.ViewModels
 {
@@ -8,7 +7,7 @@ namespace Wlabs.Application.ViewModels
         [JsonPropertyName("cep")]
         public string Cep { get; set; }
 
-        [JsonPropertyName("address_type")]
+        [JsonPropertyName("tipo_endereco")]
         public string AddressType { get; set; }
 
         [JsonPropertyName("descricao_endereco")]
@@ -32,7 +31,7 @@ namespace Wlabs.Application.ViewModels
         [JsonPropertyName("cidade")]
         public string City { get; set; }
 
-        [JsonPropertyName("city_ibge")]
+        [JsonPropertyName("cidade_ibge")]
         public string CityIbge { get; set; }
 
         [JsonPropertyName("ddd")]

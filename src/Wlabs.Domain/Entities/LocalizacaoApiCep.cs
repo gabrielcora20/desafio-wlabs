@@ -5,10 +5,19 @@ namespace Wlabs.Domain.Entities
 {
     public class LocalizacaoApiCep : EntityBase, IAggregateRoot
     {
+        [JsonProperty(PropertyName = "code")]
         public string Code { get; private set; }
+
+        [JsonProperty(PropertyName = "state")]
         public string State { get; private set; }
+
+        [JsonProperty(PropertyName = "city")]
         public string City { get; private set; }
+
+        [JsonProperty(PropertyName = "district")]
         public string District { get; private set; }
+
+        [JsonProperty(PropertyName = "address")]
         public string Address { get; private set; }
 
         public LocalizacaoApiCep() { }

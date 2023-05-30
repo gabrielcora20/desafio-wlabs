@@ -30,6 +30,8 @@ namespace Wlabs.Infra.Data.Repository
                 if (await _redisCache.ExisteInformacaoEmCache(key))
                     return await _redisCache.ObtemInformacaoEmCache<LocalizacaoViaCep>(key);
 
+
+
                 return await _httpRequester.GetAndCache<LocalizacaoViaCep>(string.Format(_configuration["ViaCepEndpoint"], cep), key);
             }
             catch (Exception ex)

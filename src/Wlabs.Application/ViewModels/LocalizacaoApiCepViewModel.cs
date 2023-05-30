@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace Wlabs.Application.ViewModels
 {
@@ -17,7 +16,7 @@ namespace Wlabs.Application.ViewModels
         [JsonPropertyName("bairro")]
         public string District { get; set; }
 
-        [JsonPropertyName("logradouro")]
+        [JsonPropertyName("endereco")]
         public string Address { get; set; }
     }
 }
