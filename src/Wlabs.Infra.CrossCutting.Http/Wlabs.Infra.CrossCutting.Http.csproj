@@ -9,6 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Wlabs.Domain\Wlabs.Domain.csproj" />
     <ProjectReference Include="..\Wlabs.Infra.CrossCutting.Json\Wlabs.Infra.CrossCutting.Json.csproj" />
+    <ProjectReference Include="..\Wlabs.Infra.CrossCutting.Redis\Wlabs.Infra.CrossCutting.Redis.csproj" />
   </ItemGroup>
 
 </Project>

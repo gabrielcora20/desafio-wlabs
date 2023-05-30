@@ -15,7 +15,6 @@ namespace Wlabs.Infra.Data.Configuration
                 UsuarioMap.Configure();
                 EntityBaseMap.Configure();
 
-                // Conventions
                 var pack = new ConventionPack
                 {
                     new IgnoreExtraElementsConvention(true),

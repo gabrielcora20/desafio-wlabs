@@ -1,9 +1,9 @@
 ﻿using MongoDB.Driver;
 using Microsoft.Extensions.Configuration;
-using Wlabs.Domain.Interfaces.Context;
 using NetDevPack.Mediator;
 using Wlabs.Domain.Entities;
 using Serilog;
+using Wlabs.Infra.Data.Interfaces;
 
 namespace Wlabs.Infra.Data.Context
 {

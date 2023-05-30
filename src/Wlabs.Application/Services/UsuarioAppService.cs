@@ -7,6 +7,7 @@ using Wlabs.Application.Interfaces;
 using Wlabs.Application.ViewModels;
 using Wlabs.Domain.Commands.Usuario;
 using Wlabs.Domain.Interfaces.Repository;
+using Wlabs.Infra.CrossCutting.Jwt.Interfaces;
 
 namespace Wlabs.Application.Services
 {
@@ -15,14 +16,18 @@ namespace Wlabs.Application.Services
         private readonly IMapper _mapper;
         private readonly IUsuarioRepository _usuarioRepository;
         private readonly IMediatorHandler _mediator;
+        private readonly IJwtUtils _jwtUtils;
+
 
         public UsuarioAppService(IMapper mapper,
                                   IUsuarioRepository usuarioRepository,
-                                  IMediatorHandler mediator)
+                                  IMediatorHandler mediator,
+                                  IJwtUtils jwtUtils)
         {
             _mapper = mapper;
             _usuarioRepository = usuarioRepository;
             _mediator = mediator;
+            _jwtUtils = jwtUtils;
         }
 
         public Task<ValidationResult> Atualiza(UsuarioViewModel usuarioViewModel)
@@ -63,6 +68,16 @@ namespace Wlabs.Application.Services
         public void Dispose()
         {
             GC.SuppressFinalize(this);
+        }
+
+        public async Task<JwtResponseViewModel> EfetuaLogin(LoginViewModel loginViewModel)
+        {
+            Log.Information($"Executando o método {nameof(EfetuaLogin)} na classe: {GetType().Name}");
+
+            var usuario = await _usuarioRepository.ObtemPorEmailESenha(loginViewModel.Email, loginViewModel.Senha);
+            if (usuario == null) return null;
+            var token = _jwtUtils.GenerateJwtToken(usuario);
+            return _mapper.Map<JwtResponseViewModel>(token);
         }
     }
 }

@@ -17,7 +17,6 @@ namespace Wlabs.Application.ViewModels
         public virtual string Email { get; set; }
 
         [Required(ErrorMessage = "O campo 'Senha' é obrigatório")]
-        [EmailAddress]
         [DisplayName("Senha")]
         public virtual string Senha { get; set; }
     }

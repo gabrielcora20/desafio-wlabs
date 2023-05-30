@@ -1,9 +1,9 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Serilog;
 using Wlabs.Domain.Entities;
-using Wlabs.Domain.Interfaces.Http;
-using Wlabs.Domain.Interfaces.Redis;
 using Wlabs.Domain.Interfaces.Repository;
+using Wlabs.Infra.CrossCutting.Http.Interfaces;
+using Wlabs.Infra.CrossCutting.Redis.Interfaces;
 
 namespace Wlabs.Infra.Data.Repository
 {

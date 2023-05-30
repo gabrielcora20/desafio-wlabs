@@ -12,6 +12,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Wlabs.Domain\Wlabs.Domain.csproj" />
+    <ProjectReference Include="..\Wlabs.Infra.CrossCutting.Encryption\Wlabs.Infra.CrossCutting.Encryption.csproj" />
+    <ProjectReference Include="..\Wlabs.Infra.CrossCutting.Http\Wlabs.Infra.CrossCutting.Http.csproj" />
   </ItemGroup>
 
 </Project>

@@ -24,6 +24,9 @@ builder.Services.AddMongoDbConfiguration();
 // Adding Redis configuration
 builder.Services.AddRedis(builder.Configuration);
 
+// Adding JWT Authentication Config
+builder.Services.AddJwtAuthenticationConfig(builder.Configuration);
+
 // .NET Native DI Abstraction
 builder.Services.AddDependencyInjectionConfiguration();
 
@@ -39,6 +42,8 @@ app.UseCors(c =>
     c.AllowAnyMethod();
     c.AllowAnyOrigin();
 });
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

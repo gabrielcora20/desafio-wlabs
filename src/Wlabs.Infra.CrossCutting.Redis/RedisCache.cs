@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Caching.Distributed;
 using Serilog;
-using Wlabs.Domain.Interfaces.Redis;
 using Wlabs.Infra.CrossCutting.Json;
+using Wlabs.Infra.CrossCutting.Redis.Interfaces;
 
 namespace Wlabs.Infra.CrossCutting.Redis
 {

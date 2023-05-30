@@ -1,4 +1,4 @@
-﻿namespace Wlabs.Domain.Interfaces.Redis
+﻿namespace Wlabs.Infra.CrossCutting.Redis.Interfaces
 {
     public interface IRedisCache
     {

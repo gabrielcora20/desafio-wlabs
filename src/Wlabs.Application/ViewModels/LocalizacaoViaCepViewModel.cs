@@ -1,37 +1,37 @@
-﻿using System.ComponentModel;
+﻿using System.Text.Json.Serialization;
 
 namespace Wlabs.Application.ViewModels
 {
     public class LocalizacaoViaCepViewModel
     {
-        [DisplayName("cep")]
+        [JsonPropertyName("cep")]
         public string Cep { get; set; }
 
-        [DisplayName("logradouro")]
+        [JsonPropertyName("logradouro")]
         public string Logradouro { get; set; }
 
-        [DisplayName("complementos")]
+        [JsonPropertyName("complemento")]
         public string Complemento { get; set; }
 
-        [DisplayName("bairro")]
+        [JsonPropertyName("bairro")]
         public string Bairro { get; set; }
 
-        [DisplayName("localidade")]
+        [JsonPropertyName("localidade")]
         public string Localidade { get; set; }
 
-        [DisplayName("uf")]
+        [JsonPropertyName("uf")]
         public string Uf { get; set; }
 
-        [DisplayName("ibge")]
+        [JsonPropertyName("ibge")]
         public string Ibge { get; set; }
 
-        [DisplayName("gia")]
+        [JsonPropertyName("gia")]
         public string Gia { get; set; }
 
-        [DisplayName("ddd")]
+        [JsonPropertyName("ddd")]
         public string Ddd { get; set; }
 
-        [DisplayName("siafi")]
+        [JsonPropertyName("siafi")]
         public string Siafi { get; set; }
     }
 }

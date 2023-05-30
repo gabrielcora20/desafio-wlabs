@@ -4,6 +4,7 @@ using NetDevPack.Messaging;
 using Serilog;
 using Wlabs.Domain.Events.Usuario;
 using Wlabs.Domain.Interfaces.Repository;
+using Wlabs.Infra.CrossCutting.Encryption;
 
 namespace Wlabs.Domain.Commands.Usuario
 {
@@ -23,7 +24,7 @@ namespace Wlabs.Domain.Commands.Usuario
 
             if (!message.IsValid()) return message.ValidationResult;
 
-            var usuario = new Entities.Usuario(message.Nome, message.Email, message.Senha);
+            var usuario = new Entities.Usuario(message.Nome, message.Email, message.Senha.Encrypt());
 
             if (await _usuarioRepository.ObtemPorEmail(usuario.Email) != null)
             {

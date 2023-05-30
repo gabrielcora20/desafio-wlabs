@@ -9,7 +9,7 @@ namespace Wlabs.Domain.Entities
         public string Email { get; private set; }
         public string Senha { get; private set; }
 
-        public Usuario(string id, string nome, string email, string senha)
+        public Usuario(ObjectId id, string nome, string email, string senha)
         {
             Id = id;
             Nome = nome;

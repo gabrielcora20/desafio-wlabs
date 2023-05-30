@@ -12,16 +12,19 @@ namespace Wlabs.Application.Services
         private readonly IMapper _mapper;
         private readonly ILocalizacaoViaCepRepository _localizacaoViaCepRepository;
         private readonly ILocalizacaoApiCepRepository _localizacaoApiCepRepository;
+        private readonly ILocalizacaoAwesomeApiRepository _localizacaoAwesomeApiRepository;
         private readonly IMediatorHandler _mediator;
 
         public LocalizacaoAppService(IMapper mapper,
                                   ILocalizacaoViaCepRepository localizacaoViaCepRepository,
                                   ILocalizacaoApiCepRepository localizacaoApiCepRepository,
+                                  ILocalizacaoAwesomeApiRepository localizacaoAwesomeApiRepository,
                                   IMediatorHandler mediator)
         {
             _mapper = mapper;
             _localizacaoViaCepRepository = localizacaoViaCepRepository;
             _localizacaoApiCepRepository = localizacaoApiCepRepository;
+            _localizacaoAwesomeApiRepository = localizacaoAwesomeApiRepository;
             _mediator = mediator;
         }
 
@@ -30,6 +33,13 @@ namespace Wlabs.Application.Services
             Log.Information($"Executando o método {nameof(ConsultaApiCep)} na classe: {GetType().Name}");
 
             return _mapper.Map<LocalizacaoApiCepViewModel>(await _localizacaoApiCepRepository.ObtemPorCep(cep));
+        }
+
+        public async Task<LocalizacaoAwesomeApiViewModel> ConsultaAwesomeApi(string cep)
+        {
+            Log.Information($"Executando o método {nameof(ConsultaAwesomeApi)} na classe: {GetType().Name}");
+
+            return _mapper.Map<LocalizacaoAwesomeApiViewModel>(await _localizacaoAwesomeApiRepository.ObtemPorCep(cep));
         }
 
         public async Task<LocalizacaoViaCepViewModel> ConsultaViaCep(string cep)

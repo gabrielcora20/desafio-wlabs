@@ -1,10 +1,12 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Wlabs.Application.Interfaces;
 using Wlabs.Services.Core.Controllers;
 
 namespace Wlabs.Services.ApiCep.Controllers
 {
-    //[Authorize]
+    [Authorize]
+    [Route("[controller]")]
     public class LocalizacaoController : ApiController
     {
         private readonly ILocalizacaoAppService _localizacaoAppService;
@@ -14,8 +16,8 @@ namespace Wlabs.Services.ApiCep.Controllers
             _localizacaoAppService = localizacaoAppService;
         }
 
-        [HttpGet("localizacao/{cep}")]
-        public async Task<IActionResult> GetFromApiCep(string cep)
+        [HttpGet("{cep}")]
+        public async Task<IActionResult> Get(string cep)
         {
             return !ModelState.IsValid ? CustomResponse(ModelState) : CustomResponse(await _localizacaoAppService.ConsultaApiCep(cep));
         }

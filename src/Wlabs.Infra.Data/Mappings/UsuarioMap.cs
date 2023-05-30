@@ -9,9 +9,9 @@ namespace Wlabs.Infra.Data.Mappings
         {
             BsonClassMap.RegisterClassMap<Usuario>(map =>
             {
-                map.MapMember(x => x.Email).SetIsRequired(true);
-                map.MapMember(x => x.Nome).SetIsRequired(true);
-                map.MapMember(x => x.Senha).SetIsRequired(true);
+                map.MapMember(x => x.Email).SetIsRequired(true).SetElementName("email");
+                map.MapMember(x => x.Nome).SetIsRequired(true).SetElementName("nome");
+                map.MapMember(x => x.Senha).SetIsRequired(true).SetElementName("senha");
                 map.MapCreator(x => new Usuario(x.Id, x.Nome, x.Email, x.Senha));
             });
         }

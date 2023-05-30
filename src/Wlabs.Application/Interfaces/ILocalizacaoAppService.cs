@@ -6,5 +6,6 @@ namespace Wlabs.Application.Interfaces
     {
         Task<LocalizacaoViaCepViewModel> ConsultaViaCep(string cep);
         Task<LocalizacaoApiCepViewModel> ConsultaApiCep(string cep);
+        Task<LocalizacaoAwesomeApiViewModel> ConsultaAwesomeApi(string cep);
     }
 }

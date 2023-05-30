@@ -11,5 +11,6 @@ namespace Wlabs.Application.Interfaces
         Task<ValidationResult> Cadastra(CadastraUsuarioViewModel criaUsuarioViewModel);
         Task<ValidationResult> Atualiza(UsuarioViewModel usuarioViewModel);
         Task<ValidationResult> Remove(ObjectId id);
+        Task<JwtResponseViewModel> EfetuaLogin(LoginViewModel loginViewModel);
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace Wlabs.Domain.Interfaces.Http
+﻿namespace Wlabs.Infra.CrossCutting.Http.Interfaces
 {
     public interface IHttpRequester
     {

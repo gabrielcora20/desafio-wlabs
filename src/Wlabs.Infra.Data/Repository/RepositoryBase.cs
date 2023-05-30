@@ -3,8 +3,8 @@ using MongoDB.Driver;
 using NetDevPack.Data;
 using Serilog;
 using Wlabs.Domain.Entities;
-using Wlabs.Domain.Interfaces.Context;
 using Wlabs.Domain.Interfaces.Repository;
+using Wlabs.Infra.Data.Interfaces;
 
 namespace Wlabs.Infra.Data.Repository
 {

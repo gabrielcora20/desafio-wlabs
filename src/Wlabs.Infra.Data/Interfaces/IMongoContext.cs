@@ -2,7 +2,7 @@
 using NetDevPack.Data;
 using Wlabs.Domain.Entities;
 
-namespace Wlabs.Domain.Interfaces.Context
+namespace Wlabs.Infra.Data.Interfaces
 {
     public interface IMongoContext : IDisposable, IUnitOfWork
     {

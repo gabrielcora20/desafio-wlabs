@@ -2,6 +2,7 @@
 using MongoDB.Bson.Serialization.Attributes;
 using NetDevPack.Messaging;
 using Newtonsoft.Json;
+using Wlabs.Domain.Converter;
 
 namespace Wlabs.Domain.Entities
 {
@@ -11,15 +12,16 @@ namespace Wlabs.Domain.Entities
 
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { get; set; }
+        [JsonConverter(typeof(ObjectIdConverter))]
+        public ObjectId Id { get; set; }
 
         [JsonIgnore]
         public IReadOnlyCollection<Event> DomainEvents => _domainEvents?.AsReadOnly();
-        public string GetId() { return Id; }
+        public ObjectId GetId() { return Id; }
 
         protected EntityBase()
         {
-            Id = ObjectId.GenerateNewId().ToString();
+            Id = ObjectId.GenerateNewId();
         }
 
         public void AddDomainEvent(Event domainEvent)

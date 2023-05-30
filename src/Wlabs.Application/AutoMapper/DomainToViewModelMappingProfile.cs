@@ -11,6 +11,9 @@ namespace Wlabs.Application.AutoMapper
             CreateMap<Usuario, UsuarioViewModel>();
             CreateMap<LocalizacaoViaCep, LocalizacaoViaCepViewModel>();
             CreateMap<LocalizacaoApiCep, LocalizacaoApiCepViewModel>();
+            CreateMap<LocalizacaoAwesomeApi, LocalizacaoAwesomeApiViewModel>();
+            CreateMap<string, JwtResponseViewModel>()
+                .ConstructUsing(t => new JwtResponseViewModel() { Token = t });
         }
     }
 }

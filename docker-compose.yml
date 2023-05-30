@@ -6,6 +6,11 @@ x-wlabs-common:
     - "8080"
   environment:
     - "TZ=America/Sao_Paulo"
+  depends_on:
+    - wlabs-auth
+    - mongo-primario
+    - elasticsearch
+    - redis
   networks:
     - mongo
     - elastic
@@ -13,6 +18,48 @@ x-wlabs-common:
     - wlabs-api-services
 
 services:
+  wlabs-usuario:
+    container_name: wlabs-usuario
+    image: wlabs-usuario
+    build:
+        context: ./src
+        dockerfile: ./Wlabs.Services.Usuario/Dockerfile
+    restart: on-failure
+    ports:
+        - "8100:8100"
+    environment:
+        - "TZ=America/Sao_Paulo"
+    depends_on:
+        - mongo-primario
+        - elasticsearch
+        - redis
+    networks:
+        - mongo
+        - elastic
+        - redis
+        - wlabs-api-services
+    
+  wlabs-auth:
+    container_name: wlabs-auth
+    image: wlabs-auth
+    build:
+        context: ./src
+        dockerfile: ./Wlabs.Services.Auth/Dockerfile
+    restart: on-failure
+    ports:
+        - "8090:8090"
+    environment:
+        - "TZ=America/Sao_Paulo"
+    depends_on:
+        - mongo-primario
+        - elasticsearch
+        - redis
+    networks:
+        - mongo
+        - elastic
+        - redis
+        - wlabs-api-services
+
   wlabs-via-cep:
     <<: *wlabs-common
     container_name: wlabs-via-cep
@@ -27,7 +74,15 @@ services:
     image: wlabs-api-cep
     build:
         context: ./src
-        dockerfile: ./Wlabs.Services.ApiCep/Dockerfile
+        dockerfile: ./Wlabs.Services.ApiCep/Dockerfile    
+
+  wlabs-awesome-api:
+    <<: *wlabs-common
+    container_name: wlabs-awesome-api
+    image: wlabs-awesome-api
+    build:
+        context: ./src
+        dockerfile: ./Wlabs.Services.AwesomeApi/Dockerfile
  
   wlabs-api-balancer:    
      container_name: wlabs-api
@@ -41,6 +96,7 @@ services:
      depends_on:
         - wlabs-via-cep
         - wlabs-api-cep
+        - wlabs-awesome-api
      networks:
         - wlabs-api-services
 
