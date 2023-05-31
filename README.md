@@ -3,8 +3,6 @@
 
 Conforme proposto pela equipe da Wlabs durante o processo seletivo, desenvolvi este projeto a partir das especificações fornecidas. Seu objetivo é receber um CEP e buscá-lo em três endpoints de terceiros ([Via Cep](https://viacep.com.br/), [Api Cep](https://apicep.com/api-de-consulta/), [Api Awesome](https://docs.awesomeapi.com.br/api-cep)), alternando entre eles, caso algum erro ocorra. 
 
-<br/>
-
 ### Serviços
 
 A aplicação conta com os seguintes serviços:
@@ -12,8 +10,6 @@ A aplicação conta com os seguintes serviços:
 * [Serviço de Autenticação](http://localhost:8090/login) - Onde o token JWT é disponibilizado para o usuário que estiver autorizado, permitindo-o acessar o endpoint de consulta de CEP.
 * [Serviço de Consulta de CEP](http://localhost:8080/localizacao/01006000) - Responsável por consultar nos três serviços disponibilizados o endereço do CEP fornecido.
 * [Serviço de Cadastro/Consulta de Usuários](http://localhost:8100/usuario) - Caso o usuário deseje cadastrar um novo registro no banco de dados, habilitando uma nova conta para autenticação, ele deve apenas enviar uma requisição POST a esse serviço.
-
-<br/>
 
 ### Tecnologias Utilizadas
 
@@ -27,17 +23,11 @@ A aplicação conta com os seguintes serviços:
 * Cacheamento dos resultados recebidos pelos endpoints via [Redis](https://redis.io/docs/about/). Portanto, caso o usuário refaça a pesquisa para o mesmo CEP, não será preciso entrar em contato com nenhum dos endpoint de terceiros, pois o valor encontra-se armazenado em cache.
 * Contêineres gerenciandos via [Docker](https://docs.docker.com/) e [Docker Compose](https://docs.docker.com/compose/).
 
-<br/>
-
 ## **Instruções de Instalação**
-
-<br/>
 
 ### Pré-requisitos
 
 * Ter o [Docker](https://docs.docker.com/get-docker/) e [Docker Compose](https://docs.docker.com/compose/install/) instalados.
-
-<br/>
 
 ### Executando o projeto
 
@@ -56,13 +46,9 @@ A aplicação conta com os seguintes serviços:
 
 ## **Instruções de Utilização**
 
-<br/>
-
 ### Requisitando Endpoints via [Postman](https://www.postman.com/downloads/)
 
 Para a utilização dos endpoints, uma collection do [Postman](https://www.postman.com/downloads/) está disponível no arquivo JSON, contido na pasta "postman", na raiz do projeto. Para importá-lo, basta seguir o seguinte [tutorial](https://learning.postman.com/docs/getting-started/importing-and-exporting-data/#importing-data-into-postman).
-
-<br/>
 
 ### Visualizando os logs da aplicação no [Kibana](https://www.elastic.co/pt/what-is/kibana)
 
@@ -78,14 +64,12 @@ Os logs da aplicação são gravados no [ElasticSearch](https://www.elastic.co/p
 * Na seção `Analytics`, clique novamente em `Discover`.
 * Agora todos os logs serão mostrados nessa tela.
 
-<br/>
-
 ## **Observações**
-Um usuário padrão já vêm cadastrado no sistema com as sequintes informações de login:
+* Um usuário padrão já vêm cadastrado no sistema com as sequintes informações de login:
 
-```json
-{
-    "Email":"wlabs@gmail.com",
-    "Senha":"1234"
-}
-```
+    ```json
+    {
+        "Email":"wlabs@gmail.com",
+        "Senha":"1234"
+    }
+    ```
